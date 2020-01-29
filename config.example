@@ -1,0 +1,9 @@
+smtp:
+  host: yoursmtp.com 
+  port: 587 
+  user: user 
+  pass: password
+  sender: no-reply@yoursmtp.com
+
+web:
+  port: 8081

@@ -1,0 +1,132 @@
+<style>
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 480px;
+  font-family: sans-serif;
+  margin: 100px auto;
+  padding: 20px;
+}
+#drop-area.highlight {
+  border-color: purple;
+}
+p {
+  margin-top: 0;
+}
+.my-form {
+  margin-bottom: 10px;
+}
+#gallery {
+  margin-top: 10px;
+}
+#gallery img {
+  width: 150px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.button {
+  display: inline-block;
+  padding: 10px;
+  background: #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.button:hover {
+  background: #ddd;
+}
+#fileElem {
+  display: none;
+}
+
+
+</style>
+
+<div id="drop-area">
+  <form class="my-form">
+    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+    Email: <input type="email" name="email"><br>
+    <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+    <label class="button" for="fileElem">Select some files</label>
+  </form>
+</div>
+
+<progress id="progress-bar" max=100 value=0></progress>
+<script>
+let filesDone = 0
+let filesToDo = 0
+let progressBar = document.getElementById('progress-bar')
+let dropArea = document.getElementById('drop-area');
+
+dropArea.addEventListener('drop', handleDrop, false)
+
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, preventDefaults, false)
+});
+
+['dragenter', 'dragover'].forEach(eventName => {
+  dropArea.addEventListener(eventName, highlight, false)
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, unhighlight, false)
+});
+
+
+
+
+function preventDefaults (e) {
+  e.preventDefault()
+  e.stopPropagation()
+}
+
+function highlight(e) {
+  dropArea.classList.add('highlight')
+}
+
+function unhighlight(e) {
+  dropArea.classList.remove('highlight')
+}
+
+
+function handleDrop(e) {
+  let dt = e.dataTransfer
+  let files = dt.files
+
+  handleFiles(files)
+}
+
+function handleFiles(files) {
+  initializeProgress(files.length)
+  ([...files]).forEach(uploadFile)
+}
+
+
+function uploadFile(file) {
+  let url = '/upload'
+  let formData = new FormData()
+
+  formData.append('file', file)
+
+  fetch(url, {
+    method: 'POST',
+    body: formData
+  })
+  .then((progressDone) => { /* Done. Inform the user */ })
+  .catch(() => { /* Error. Inform the user */ })
+}
+
+function initializeProgress(numfiles) {
+  progressBar.value = 0
+  filesDone = 0
+  filesToDo = numfiles
+}
+
+function progressDone() {
+  filesDone++
+  progressBar.value = filesDone / filesToDo * 100
+}
+
+</script>
+
