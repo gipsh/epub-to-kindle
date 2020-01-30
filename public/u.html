@@ -40,6 +40,16 @@ p {
   display: none;
 }
 
+#success {
+  border: 2px groove #ccc;
+  border-radius: 20px;
+  width: 480px;
+  font-family: sans-serif;
+  margin: 100px auto;
+  padding: 20px;
+  visibility: hidden;
+}
+
 
 </style>
 
@@ -55,10 +65,19 @@ p {
 -->
 </div>
 
+
+<div id="success">
+ <p> your epub was uploaded. </p>
+ <p> I will convert it and send it to your kindle</p>
+ <p> Be patient, it would take some minutes </p>
+</div>
+
 <script>
 
 
 let dropArea = document.getElementById('drop-area');
+let success  = document.getElementById('success');
+
 
 dropArea.addEventListener('drop', handleDrop, false);
 
@@ -129,7 +148,7 @@ function initializeProgress(numFiles) {
 }
 
 function progressDone() {
-  alert('listo')
+	success.style.visibility = "visible";
 }
 
 </script>
