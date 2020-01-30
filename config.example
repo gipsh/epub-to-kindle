@@ -7,3 +7,8 @@ smtp:
 
 web:
   port: 8081
+
+convert:
+  darwin: /Applications/calibre.app/Contents/MacOS/ebook-convert
+  linux: /usr/sbin/ebook-convert
+  winidows: ebook-convert

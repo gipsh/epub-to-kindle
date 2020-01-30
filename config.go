@@ -18,6 +18,11 @@ type Config struct {
    WEB struct {
 	Port string `yaml:"port"`
     } `yaml:"web"`
+   CONVERT struct {
+        Linux string `yaml:"linux"`
+        Darwin string `yaml:"darwin"`
+        Windows string `yaml:"windows"`
+   } `yaml:"convert"`
 }
 
 func processError(err error) {

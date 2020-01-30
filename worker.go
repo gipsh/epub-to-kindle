@@ -7,11 +7,9 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"runtime"
 
 )
-
-var EBOOK_CONVERT_PATH = "/usr/bin/ebook-convert"
-
 
 type EBook struct {
 	Email string
@@ -30,7 +28,9 @@ func Convert_Run(ebook EBook, cfg Config) {
 	fmt.Println("converting")
 	ebook.Mobi = Get_MOBI_Target(ebook.Epub)
 
-	out, err := exec.Command(EBOOK_CONVERT_PATH, ebook.Epub, ebook.Mobi).Output()
+	ebook_convert := GetConvertPath(cfg)
+
+	out, err := exec.Command(ebook_convert, ebook.Epub, ebook.Mobi).Output()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,6 +39,22 @@ func Convert_Run(ebook EBook, cfg Config) {
 
 	Send_Mail(ebook, cfg)
 }
+
+func GetConvertPath(cfg Config) string {
+
+  switch runtime.GOOS {
+    case "linux":
+      return cfg.CONVERT.Linux 
+    case "darwin":
+      return cfg.CONVERT.Darwin
+    case "windows": 
+      return cfg.CONVERT.Windows
+    default:
+      return cfg.CONVERT.Linux
+    }
+
+}
+
 
 func StartWorker(ch <-chan EBook, cfg Config) {
 
