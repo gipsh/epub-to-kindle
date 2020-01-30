@@ -4,7 +4,6 @@ import (
 	"os"
 	"fmt"
 	"flag"
-	"runtime"
 )
 
 func main() {

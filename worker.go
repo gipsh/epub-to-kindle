@@ -66,13 +66,15 @@ func StartWorker(ch <-chan EBook, cfg Config) {
 }
 
 
-func Convert_RunEx(epub string) {
+func Convert_RunEx(epub string, cfg Config) {
 
 
         fmt.Println("converting")
         mobi := Get_MOBI_Target(epub)
 
-        cmd := exec.Command(EBOOK_CONVERT_PATH, epub, mobi)
+	ebook_convert := GetConvertPath(cfg)
+
+        cmd := exec.Command(ebook_convert, epub, mobi)
 
 	stdout, err := cmd.StdoutPipe()
 
