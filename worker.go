@@ -26,6 +26,7 @@ func Get_MOBI_Target(epub string) string {
 func Convert_Run(ebook EBook, cfg Config) {
 
 	fmt.Println("converting")
+	fmt.Println(ebook)
 	ebook.Mobi = Get_MOBI_Target(ebook.Epub)
 
 	ebook_convert := GetConvertPath(cfg)

@@ -20,7 +20,7 @@ func main() {
           StartWeb(ch, cfg)
 	} else {
           if len(os.Args) <= 2 {
-                fmt.Fprintln(os.Stderr, "You must specify a file and an email address")
+                fmt.Fprintln(os.Stderr, "You must specify a file and an email address or -web mode")
 		flag.Usage()
                 os.Exit(1)
           }

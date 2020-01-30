@@ -45,21 +45,22 @@ p {
 
 <div id="drop-area">
   <form class="my-form">
-    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-    Email: <input type="email" name="email"><br>
+    <p>Complete with your @kindle email and drop your epub here</p>
+    <p>Email: <input type="email" id="email" name="email"></p>
     <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
     <label class="button" for="fileElem">Select some files</label>
   </form>
+<!--
+  <progress id="progress-bar" max=100 value=0></progress>
+-->
 </div>
 
-<progress id="progress-bar" max=100 value=0></progress>
 <script>
-let filesDone = 0
-let filesToDo = 0
-let progressBar = document.getElementById('progress-bar')
+
+
 let dropArea = document.getElementById('drop-area');
 
-dropArea.addEventListener('drop', handleDrop, false)
+dropArea.addEventListener('drop', handleDrop, false);
 
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
   dropArea.addEventListener(eventName, preventDefaults, false)
@@ -98,8 +99,8 @@ function handleDrop(e) {
 }
 
 function handleFiles(files) {
-  initializeProgress(files.length)
-  ([...files]).forEach(uploadFile)
+  files = [...files]
+  files.forEach(uploadFile)
 }
 
 
@@ -108,25 +109,27 @@ function uploadFile(file) {
   let formData = new FormData()
 
   formData.append('file', file)
+  formData.append('email', document.getElementById("email").value)
 
   fetch(url, {
     method: 'POST',
     body: formData
   })
-  .then((progressDone) => { /* Done. Inform the user */ })
+  .then(progressDone())
   .catch(() => { /* Error. Inform the user */ })
 }
 
-function initializeProgress(numfiles) {
-  progressBar.value = 0
-  filesDone = 0
-  filesToDo = numfiles
+function updateProgress(fileNumber, percent) {
+  uploadProgress[fileNumber] = percent
+  let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
+  progressBar.value = total
+}
+
+function initializeProgress(numFiles) {
 }
 
 function progressDone() {
-  filesDone++
-  progressBar.value = filesDone / filesToDo * 100
+  alert('listo')
 }
 
 </script>
-
