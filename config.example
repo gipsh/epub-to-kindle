@@ -10,5 +10,5 @@ web:
 
 convert:
   darwin: /Applications/calibre.app/Contents/MacOS/ebook-convert
-  linux: /usr/sbin/ebook-convert
+  linux: /usr/bin/ebook-convert
   winidows: ebook-convert
