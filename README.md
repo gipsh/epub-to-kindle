@@ -2,6 +2,9 @@
 
 Convert and send epubs to a kindle device 
 
+Just put your @kindle.com address and drop epubs 
+
+
 ## Build 
 
 Get deps
@@ -16,12 +19,17 @@ Then build
 go build
 ```
 
+
+
 ## Deps
 
 You will need `ebook-convert` binary from calibre. 
 So install calibre on your platform. https://calibre-ebook.com/
 
+
+
 ## Using 
+
 
 ### CLI Mode 
 
@@ -43,9 +51,11 @@ and the go to http://localhost:8081
 
 
 
-## Config
+### Config
 
-config.yml
+On the `config.yml` put your SMTP credentials and make shure the 
+path to `ebook-convert` binary is right for your platform
+
 
 
 
