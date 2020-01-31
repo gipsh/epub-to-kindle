@@ -47,13 +47,16 @@ Start a web server where you can drag & drop your epubs and magically those be a
 ./epub-to-kindle -web 
 ```
 
-and the go to http://localhost:8081
+and then open your browser and go to http://localhost:8081
 
 
 
 ### Config
 
-On the `config.yml` put your SMTP credentials and make shure the 
+You have to create your own `config.yml` based on the `config.example`
+
+Then put your SMTP credentials and make shure the 
+
 path to `ebook-convert` binary is right for your platform
 
 
