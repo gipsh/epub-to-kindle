@@ -16,10 +16,10 @@ func Send_Mail(ebook EBook, cfg Config) {
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	m := gomail.NewMessage()
-	m.SetHeader("From", "robot@ubiguard.com")
+	m.SetHeader("From", cfg.SMTP.Sender)
 	m.SetHeader("To", ebook.Email)
 	m.SetHeader("Subject", "A book for you")
-	m.SetBody("text/html", "Happy birthday. This is your party. This a small <b>gift</b>!")
+	m.SetBody("text/html", "Happy birthday. Here goes a small <b>gift</b>!")
 	m.Attach(ebook.Mobi)
 
 	if err := d.DialAndSend(m); err != nil {
