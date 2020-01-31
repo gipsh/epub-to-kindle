@@ -54,9 +54,7 @@ and then open your browser and go to http://localhost:8081
 ### Config
 
 You have to create your own `config.yml` based on the `config.example`
-
-Then put your SMTP credentials and make shure the 
-
+Then put your SMTP credentials and make sure the 
 path to `ebook-convert` binary is right for your platform
 
 
